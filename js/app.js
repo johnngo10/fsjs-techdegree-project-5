@@ -5,6 +5,9 @@ let employees = [];
 const urlAPI =
   "https://randomuser.me/api/?results=12&inc=name, picture, email, location, phone, dob &noinfo &nat=US";
 const gallery = document.getElementById("gallery");
+const body = document.querySelector("body");
+const modalClose = document.getElementById("modal-close-btn");
+const modalContainer = document.querySelector(".modal-container");
 // --------------------------------------
 // Fetch Function
 // --------------------------------------
@@ -62,20 +65,41 @@ function displayModal(index) {
   let date = new Date(dob.date);
 
   const modalHTML = `
-    <img class="avatar" src="${picture.large}">
-    <div class="text-container modal-info" data-index="${index}">
-      <h2 class="name">${name.first} ${name.last}</h2>
-      <p class="email">${email}</p>
-      <p class="address">${city}</p>
-      <hr>
-      <p>${phone}</p>
-      <p class="address">${street.number} ${
+  <div class="modal-container">
+  <div class="modal">
+      <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+      <div class="modal-info-container">
+          <img class="modal-img" src="${picture.large}" alt="profile picture">
+          <h3 id="name" class="modal-name cap">${name.first} ${name.last}</h3>
+          <p class="modal-text">${email}</p>
+          <p class="modal-text cap">${city}</p>
+          <hr>
+          <p class="modal-text">${phone}</p>
+          <p class="modal-text">${street.number} ${
     street.name
   }, ${state} ${postcode}</p>
-      <p>Birthday: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
-    </div>
+          <p class="modal-text">${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+      </div>
+  </div>
   `;
 
-  overlay.classList.remove("hidden");
-  modalContainer.innerHTML = modalHTML;
+  // overlay.classList.remove("hidden");
+  body.innerHTML = modalHTML;
 }
+
+// --------------------------------------
+// EVENT LISTENERS
+// --------------------------------------
+
+gallery.addEventListener("click", e => {
+  if (e.target !== gallery) {
+    const card = e.target.closest(".card");
+    const index = card.getAttribute("data-index");
+
+    displayModal(index);
+  }
+});
+
+modalClose.addEventListener("click", () => {
+  modalContainer.style.display = "none";
+});
