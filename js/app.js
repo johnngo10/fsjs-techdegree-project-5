@@ -6,8 +6,7 @@ const urlAPI =
   "https://randomuser.me/api/?results=12&inc=name, picture, email, location, phone, dob &noinfo &nat=US";
 const gallery = document.getElementById("gallery");
 const body = document.querySelector("body");
-const modalClose = document.getElementById("modal-close-btn");
-const modalContainer = document.querySelector(".modal-container");
+const modalDiv = document.getElementById("modal-div");
 // --------------------------------------
 // Fetch Function
 // --------------------------------------
@@ -83,8 +82,16 @@ function displayModal(index) {
   </div>
   `;
 
-  // overlay.classList.remove("hidden");
-  body.innerHTML = modalHTML;
+  modalDiv.innerHTML = modalHTML;
+
+  const modalContainer = document.querySelector(".modal-container");
+  const modalClose = document.getElementById("modal-close-btn");
+
+  modalContainer.classList.remove("hidden");
+
+  modalClose.addEventListener("click", () => {
+    modalContainer.classList.add("hidden");
+  });
 }
 
 // --------------------------------------
@@ -100,6 +107,6 @@ gallery.addEventListener("click", e => {
   }
 });
 
-modalClose.addEventListener("click", () => {
-  modalContainer.style.display = "none";
-});
+// modalClose.addEventListener("click", () => {
+//   modalContainer.style.display = "block";
+// });
