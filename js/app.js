@@ -7,6 +7,7 @@ const urlAPI =
 const gallery = document.getElementById("gallery");
 const body = document.querySelector("body");
 const modalDiv = document.getElementById("modal-div");
+const searchContainer = document.querySelector(".search-container");
 // --------------------------------------
 // Fetch Function
 // --------------------------------------
@@ -120,6 +121,37 @@ function displayModal(index) {
     }
   });
 }
+
+// Display search bar
+function displaySearch() {
+  const searchHtml = `
+  <form action="#" method="get">
+  <input type="search" id="search-input" class="search-input" placeholder="Search...">
+  <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+</form>
+  `;
+
+  searchContainer.innerHTML = searchHtml;
+
+  const search = document.getElementById("search-input");
+
+  search.addEventListener("keyup", e => {
+    const searchInput = e.target.value.toLowerCase();
+    const names = document.querySelectorAll(".card-name");
+    for (let i = 0; i < names.length; i++) {
+      const name = names[i].textContent.toLowerCase();
+      const text = names[i].parentElement;
+      const cards = text.parentElement;
+      if (name.toLowerCase().indexOf(searchInput) > -1) {
+        cards.style.display = "flex";
+      } else {
+        cards.style.display = "none";
+      }
+    }
+  });
+}
+
+displaySearch();
 
 // --------------------------------------
 // EVENT LISTENERS
