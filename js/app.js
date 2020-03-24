@@ -116,7 +116,7 @@ function displayModal(index) {
     const modalInfo = document.querySelector(".modal-info-container");
     const index = modalInfo.getAttribute("data-index");
     const nextIndex = parseInt(index) + 1;
-    if (index < 12) {
+    if (index < 11) {
       displayModal(nextIndex);
     }
   });
