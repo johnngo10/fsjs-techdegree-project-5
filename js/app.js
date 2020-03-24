@@ -134,7 +134,7 @@ function displaySearch() {
   searchContainer.innerHTML = searchHtml;
 
   const search = document.getElementById("search-input");
-
+  // Check user search and display employees who's name matches
   search.addEventListener("keyup", e => {
     const searchInput = e.target.value.toLowerCase();
     const names = document.querySelectorAll(".card-name");
